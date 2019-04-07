@@ -1,0 +1,24 @@
+{
+  "name": "garc",
+  "version": "0.0.1",
+  "description": "Gmail Archiver",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sleb/garc.git"
+  },
+  "author": "sleb",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/sleb/garc/issues"
+  },
+  "homepage": "https://github.com/sleb/garc#readme",
+  "dependencies": {
+    "@types/google-apps-script": "0.0.43",
+    "tslint": "^5.15.0",
+    "typescript": "^3.4.2"
+  }
+}
