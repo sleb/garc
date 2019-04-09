@@ -35,12 +35,15 @@ function gark(search: SearchConfig, config: AutoArchiveConfig) {
       console.log(`found ${count} eligible threads. Preparing to trash...`);
       GmailApp.moveThreadsToTrash(threads);
       console.log(`trashed ${count} threads`);
+      trashedCount += count;
     }
   } while (threads.length > 0);
 
   if (config.shouldSendEmail) {
     sendEmailReport(trashedCount);
   }
+
+  console.log(`trashed total ${trashedCount} threads`);
 }
 
 function main() {
