@@ -1,6 +1,7 @@
 export interface AutoArchiveConfig {
   shouldDeletePermenantly: boolean;
   shouldSendEmail: boolean;
+  archiveLabelName: string;
 }
 
 export interface SearchConfig {

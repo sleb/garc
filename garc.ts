@@ -19,6 +19,11 @@ function sendEmailReport(trashedCount: number) {
   );
 }
 
+function getOrCreateLabel(name: string): GoogleAppsScript.Gmail.GmailLabel {
+  const label = GmailApp.getUserLabelByName(name);
+  return (label ? label : GmailApp.createLabel(name));
+}
+
 function gark(search: SearchConfig, config: AutoArchiveConfig) {
 
   let trashedCount = 0;
@@ -26,14 +31,17 @@ function gark(search: SearchConfig, config: AutoArchiveConfig) {
 
   const searchString = getSearchString(search);
   console.log(`search string: ${searchString}`);
+  const archiveLabel = getOrCreateLabel(config.archiveLabelName);
+  console.log(`archive label: ${archiveLabel.getName()}`);
   
   do {
     threads = GmailApp.search(searchString, 1, 100);
     let count = threads.length;
 
     if (count > 0) {
-      console.log(`found ${count} eligible threads. Preparing to trash...`);
+      console.log(`found ${count} eligible threads. Preparing to label and trash...`);
       GmailApp.moveThreadsToTrash(threads);
+      archiveLabel.addToThreads(threads);
       console.log(`trashed ${count} threads`);
       trashedCount += count;
     }
@@ -53,6 +61,7 @@ function main() {
     location: 'inbox'
   }, {
     shouldDeletePermenantly: false,
-    shouldSendEmail: true
+    shouldSendEmail: true,
+    archiveLabelName: 'Auto Archive'
   });
 }
